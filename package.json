@@ -1,0 +1,16 @@
+{
+  "name": "hwamei",
+  "version": "0.0.0",
+  "private": true,
+  "author": "likai <youyuge@gmail.com>",
+  "description": "A simple helpful robot for your Company",
+  "dependencies": {
+    "cron": "latest",
+    "dotenv": "latest",
+    "hubot": "^2.19.0",
+    "hubot-diagnostics": "0.0.2",
+    "hubot-redis-brain": "0.0.4",
+    "request": "latest",
+    "wxwork-api": "latest"
+  }
+}
