@@ -9,6 +9,8 @@ hwamei 是一个基于 hubot 的企业微信聊天机器人，它能够通过 we
 ## 安装
 
 - `git clone https://github.com/uniqueway/hwamei.git`
+- 复制 sample.env 为 .env
+- 将你的企业微信 corpId 和 app secret 填上
 - `npm install`
 - `./bin/hubot`
 
