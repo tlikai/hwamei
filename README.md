@@ -2,6 +2,10 @@
 
 hwamei 是一个基于 hubot 的企业微信聊天机器人，它能够通过 webhook 将收集的信息发送到企业微信群中。
 
+## 预览
+
+![企业微信群聊天机器人](http://p.qpic.cn/pic_wework/439528718/dadcc3d69e2a69710cbb7ce270aab93f77fa86e5d64bf11c/0)
+
 ## 安装
 
 - `git clone https://github.com/uniqueway/hwamei.git`
