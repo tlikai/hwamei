@@ -12,6 +12,7 @@
 //   list webhook
 //   delete webhook {token}
 //   delete all webhook
+//   update webhook {token} {name|type|chat_id} to {value}
 
 const wxwork = require('../lib/wxwork')
 const handlers = require('../lib/webhook_handlers')
@@ -66,6 +67,18 @@ module.exports = (robot) => {
     delete webhooks[token]
 
     res.send('done')
+  })
+
+  robot.hear(/update webhook (.*) (name|type|chat_id) to (.*)/, (res) => {
+    const token = res.match[1]
+    const attribute = res.match[2]
+    const value = res.match[3]
+
+    let webhooks = robot.brain.get('webhooks') || {}
+    webhooks[token][attribute] = value
+    robot.brain.set('webhooks', webhooks)
+
+    res.send(JSON.stringify(webhooks[token]))
   })
 
   robot.router.post('/:type/:token', (req, res) => {

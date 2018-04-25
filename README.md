@@ -31,6 +31,7 @@ hwamei 是一个基于 hubot 的企业微信聊天机器人，它能够通过 we
 - `hwamei>list webhooks` 列出所有 webhook
 - `hwamei>delete webhook {token}` 删除一个 webhook
 - `hwamei>delete all webhook` 删除所有 webhook
+- `update webhook {token} {name|type|chat_id} to {value}` 修改一个 webhook
 
 ## 扩展
 
