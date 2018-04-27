@@ -1,1 +1,1 @@
-web: bin/hubot -a bearychat
+web: bin/hubot -a shell

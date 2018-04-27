@@ -13,7 +13,10 @@
 //   delete webhook {token}
 //   delete all webhook
 //   update webhook {token} {name|type|chat_id} to {value}
+//   backup webhooks
+//   load webhooks
 
+const fs = require('fs')
 const wxwork = require('../lib/wxwork')
 const handlers = require('../lib/webhook_handlers')
 
@@ -79,6 +82,26 @@ module.exports = (robot) => {
     robot.brain.set('webhooks', webhooks)
 
     res.send(JSON.stringify(webhooks[token]))
+  })
+
+  robot.hear(/backup webhooks/, (res) => {
+    const webhooks = robot.brain.get('webhooks') || {}
+    const data = JSON.stringify(webhooks)
+    fs.writeFile('./data/webhooks.json', data, (error) => {
+      if (error) {
+        res.send('Backup failed')
+      } else {
+        res.send('Done')
+      }
+    })
+  })
+
+  robot.hear(/load webhooks/, (res) => {
+    const data = fs.readFileSync('./data/webhooks.json')
+    const webhooks = JSON.parse(data) || {}
+    robot.brain.set('webhooks', webhooks)
+
+    res.send('Done')
   })
 
   robot.router.post('/:type/:token', (req, res) => {
