@@ -105,4 +105,10 @@ module.exports = (robot) => {
 
     showChat(chatId)
   })
+
+  robot.hear(/wxwork message (.*) to (.*)/, (res) => {
+    const message = res.match[1]
+    const chatId = res.match[2]
+    wxwork.sendMessage(chatId, message)
+  })
 }

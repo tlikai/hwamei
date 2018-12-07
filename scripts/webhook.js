@@ -21,7 +21,7 @@ const wxwork = require('../lib/wxwork')
 const handlers = require('../lib/webhook_handlers')
 
 module.exports = (robot) => {
-  robot.hear(/create webhook (.*) from (.*) to (.*)/, (res) => {
+  robot.hear(/webhook create (.*) from (.*) to (.*)/, (res) => {
     const name = res.match[1]
     const type = res.match[2]
     const chatId = res.match[3]
@@ -48,7 +48,7 @@ module.exports = (robot) => {
     res.send(`There is your webhook url: ${url}`)
   })
 
-  robot.hear(/list webhooks?/, (res) => {
+  robot.hear(/webhook list/, (res) => {
     let lines = ['']
     let webhooks = robot.brain.get("webhooks") || {}
     for(let token in webhooks) {
@@ -59,12 +59,12 @@ module.exports = (robot) => {
     res.send(lines.join("\n"))
   })
 
-  robot.hear(/delete all webhook[s]?/, (res) => {
+  robot.hear(/webhook delete all/, (res) => {
     robot.brain.set('webhooks', {})
     res.send('done')
   })
 
-  robot.hear(/delete webhook (.*)/, (res) => {
+  robot.hear(/webhook delete (.*)/, (res) => {
     const token = res.match[1]
     let webhooks = robot.brain.get('webhooks') || {}
     delete webhooks[token]
@@ -72,7 +72,7 @@ module.exports = (robot) => {
     res.send('done')
   })
 
-  robot.hear(/update webhook (.*) (name|type|chat_id) to (.*)/, (res) => {
+  robot.hear(/webhook update (.*) (name|type|chat_id) to (.*)/, (res) => {
     const token = res.match[1]
     const attribute = res.match[2]
     const value = res.match[3]
@@ -84,7 +84,7 @@ module.exports = (robot) => {
     res.send(JSON.stringify(webhooks[token]))
   })
 
-  robot.hear(/backup webhooks/, (res) => {
+  robot.hear(/webhook backup/, (res) => {
     const webhooks = robot.brain.get('webhooks') || {}
     const data = JSON.stringify(webhooks)
     fs.writeFile('./data/webhooks.json', data, (error) => {
@@ -96,7 +96,7 @@ module.exports = (robot) => {
     })
   })
 
-  robot.hear(/load webhooks/, (res) => {
+  robot.hear(/webhook restore/, (res) => {
     const data = fs.readFileSync('./data/webhooks.json')
     const webhooks = JSON.parse(data) || {}
     robot.brain.set('webhooks', webhooks)
