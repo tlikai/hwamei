@@ -53,7 +53,7 @@ module.exports = (robot) => {
     let webhooks = robot.brain.get("webhooks") || {}
     for(let token in webhooks) {
       let webhook = webhooks[token]
-      lines.push(`name: ${webhook.name}, type: ${webhook.type}, chat_id: ${webhook.chat_id}, url: ${webhook.url}`)
+      lines.push(`name: ${webhook.name}, type: ${webhook.type}, chat_id: ${webhook.chat_id}, token: ${token}, url: ${webhook.url}`)
     }
 
     res.send(lines.join("\n"))
