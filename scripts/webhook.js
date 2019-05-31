@@ -17,6 +17,7 @@
 //   load webhooks
 
 const fs = require('fs')
+const handlers = require('../lib/webhook_handlers')
 
 module.exports = (robot) => {
   robot.hear(/webhook create (.*) from (.*) to (.*)/, (res) => {
