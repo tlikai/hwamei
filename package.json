@@ -5,6 +5,7 @@
   "author": "likai <youyuge@gmail.com>",
   "description": "A simple helpful robot for your Company",
   "dependencies": {
+    "axios": "^0.19.0",
     "cron": "latest",
     "dotenv": "latest",
     "hubot": "^2.19.0",

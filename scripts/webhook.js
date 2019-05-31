@@ -17,8 +17,6 @@
 //   load webhooks
 
 const fs = require('fs')
-const wxwork = require('../lib/wxwork')
-const handlers = require('../lib/webhook_handlers')
 
 module.exports = (robot) => {
   robot.hear(/webhook create (.*) from (.*) to (.*)/, (res) => {
@@ -103,60 +101,4 @@ module.exports = (robot) => {
 
     res.send('Done')
   })
-
-  robot.router.post('/:type/:token', (req, res) => {
-    const type = req.params.type
-    const token = req.params.token
-    const webhooks = robot.brain.get('webhooks', {})
-
-    if (!webhooks[token]) {
-      return res.send("Invalid token")
-    }
-
-    webhook = webhooks[token]
-    const chatId = webhook['chat_id']
-    const messageObject = resolveMessageObject(type, webhook, req.body)
-
-    if (messageObject === false) {
-      res.send('Invalid handler')
-    }
-
-    async function sendMessage(chatId, messageObject){
-      let response
-      if (messageObject.title) {
-        response = await wxwork.sendCard(chatId,
-          messageObject.title, messageObject.content, messageObject.url)
-      } else {
-        response = await wxwork.sendMessage(chatId,
-          messageObject.content)
-      }
-
-      if (response.ok) {
-        res.send('OK')
-      } else {
-        res.send(response.message)
-      }
-    }
-
-    sendMessage(chatId, messageObject)
-  })
-}
-
-function resolveMessageObject(name, webhook, params) {
-  try {
-    return handlers[name](webhook, params)
-  } catch (error) {
-    console.error(error)
-    return false
-  }
-}
-
-function generateUUID(){
-    var d = new Date().getTime()
-    var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-        var r = (d + Math.random()*16)%16 | 0
-        d = Math.floor(d/16)
-        return (c=='x' ? r : (r&0x7|0x8)).toString(16)
-    });
-    return uuid
 }
