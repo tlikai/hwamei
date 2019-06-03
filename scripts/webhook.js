@@ -17,6 +17,7 @@
 //   load webhooks
 
 const fs = require('fs')
+const handlers = require('../lib/webhook_handlers')
 
 module.exports = (robot) => {
   robot.hear(/webhook create (.*) from (.*) to (.*)/, (res) => {
@@ -102,3 +103,14 @@ module.exports = (robot) => {
     res.send('Done')
   })
 }
+
+function generateUUID(){
+    var d = new Date().getTime()
+    var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+        var r = (d + Math.random()*16)%16 | 0
+        d = Math.floor(d/16)
+        return (c=='x' ? r : (r&0x7|0x8)).toString(16)
+    });
+    return uuid
+}
+
