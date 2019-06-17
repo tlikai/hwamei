@@ -18,6 +18,7 @@ module.exports = (robot) => {
   robot.router.post('/:type/:token', (req, res) => {
     const type = req.params.type
     const token = req.params.token
+    const header = JSON.stringify(req.headers)
     const webhooks = robot.brain.get('webhooks', {})
 
     if (!webhooks[token]) {
@@ -26,13 +27,14 @@ module.exports = (robot) => {
 
     webhook = webhooks[token]
     const chatId = webhook['chat_id']
-    const message = resolveMessageObject(type, req.body)
+
+    const message = resolveMessageObjectWebHook(type, header, req.body)
 
     if (message === false) {
       res.send('Invalid handler')
     }
 
-    async function sendMessage(chatId, message){
+    async function sendMessage(chatId, message) {
       let response = await wxwork.sendMessage(chatId, message)
       if (response.ok) {
         res.send(message)
@@ -67,6 +69,15 @@ module.exports = (robot) => {
       console.log(error)
     })
   })
+}
+
+function resolveMessageObjectWebHook(name,headerstr, params) {
+  try {
+    return handlers[name](headerstr,params)
+  } catch (error) {
+    console.error(error)
+    return false
+  }
 }
 
 function resolveMessageObject(name, params) {
