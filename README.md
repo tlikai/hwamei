@@ -67,6 +67,7 @@ hwamei 是一个基于 hubot 的企业微信聊天机器人，它能够通过 we
   - sentry
   - gitlab
   - github
+  - gogs
 
 ## 扩展更多命令
 
