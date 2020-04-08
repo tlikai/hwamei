@@ -1,5 +1,8 @@
 # hwamei
 
+## 本项目已经不再维护
+## Github webhook 集成企业微信群机器人推荐使用 [DinglingDingling](https://dinglingdingling.com/)
+
 hwamei 是一个基于 hubot 的企业微信聊天机器人，它能够通过 webhook 将收集的信息发送到企业微信群中。
 
 已兼容企业微信原生webhook机器人！！！ 具体见 https://github.com/tlikai/hwamei/pull/2
