@@ -8,7 +8,7 @@
     "axios": "^0.19.0",
     "cron": "latest",
     "dotenv": "latest",
-    "hubot": "^2.19.0",
+    "hubot": "^3.3.2",
     "hubot-diagnostics": "0.0.2",
     "hubot-redis-brain": "0.0.4",
     "request": "latest",
